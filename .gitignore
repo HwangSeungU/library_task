@@ -1,14 +1,11 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,java,eclipse,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,java,eclipse,macos
 
-<<<<<<< HEAD
-*.exe
-resource/
 
-=======
->>>>>>> 9a878a225ecd460a8562ce31fa937582ba900fa9
 ### Eclipse ###
 .metadata
+team01/.settings/
+team01/bin/
 bin/
 tmp/
 *.tmp
