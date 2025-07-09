@@ -1,15 +1,13 @@
 package useManager;
 
+import java.util.Scanner;
+
 public class LibraryApp {
 	public static void main(String[] args) {
-		System.out.println("테스트입니다");
-		System.out.println("테스트입니다");
-		System.out.println("테스트입니다");
-		System.out.println("테스트입니다");
-		System.out.println("테스트입니다");
-		System.out.println("테스트입니다");
-		System.out.println("테스트입니다");
-		System.out.println("테스트입니다");
-	}
+		Scanner sc = new Scanner(System.in);
+		ConsoleUI c = new ConsoleUI();
+		c.Consol(sc);
+	} // main
 
-}
+
+} // class
