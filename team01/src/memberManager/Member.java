@@ -14,15 +14,15 @@ public class Member extends User{//User로 바꿔서 해야함
 	ArrayList<Book> borrowedBooks = new ArrayList<>();
 	private final int MAX_BORROW = 20;
 
-	// 생성자
-	public Member(String name, String phoneNumber, String id, String password, ArrayList<Book> borrowBooks) {
+	// 생성자 
+	public Member(String name, String phoneNumber, String id, String password, ArrayList<Book> borrowedBooks) {
 		super(name, phoneNumber, id, password);
+		this.borrowedBooks = borrowedBooks;
 	}
 
-	// 로그인 메소드 오버라이딩 -- 이 부분은 승우님이 다시 바꿔주시면 고칠게요!
-	
+	// 로그인 메소드 오버라이딩
 	//UserManager 메소드 전부 User로 이동시켜서 User에서 상속받아서 login 메소드 이용할 수 있게 적용
-//	@Override
+	@Override
 	public void login(String id, String password) {
 		super.login(id, password);
 		System.out.println("로그인 성공");
@@ -46,7 +46,7 @@ public class Member extends User{//User로 바꿔서 해야함
 		book.borrow();
 		System.out.println("대출 성공. 대출한 책 제목: " + book.getTitle());
 	}	
-	
+
 	// 도서 반남 메소드
 	//returnBook 책을 빌렸었는지 먼저 하기
 	public void returnBook(Book book) throws BookNotAvailableException {
