@@ -20,6 +20,8 @@ public class Member extends User{//User로 바꿔서 해야함
 	}
 
 	// 로그인 메소드 오버라이딩 -- 이 부분은 승우님이 다시 바꿔주시면 고칠게요!
+	
+	//UserManager 메소드 전부 User로 이동시켜서 User에서 상속받아서 login 메소드 이용할 수 있게 적용
 //	@Override
 	public void login(String id, String password) {
 		super.login(id, password);
