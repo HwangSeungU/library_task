@@ -85,6 +85,5 @@ public class Book<T> extends Memeber {
 	public void setBorrow(boolean isBorrow) {
 		this.isBorrow = isBorrow;
 	}
-
 	
 }
