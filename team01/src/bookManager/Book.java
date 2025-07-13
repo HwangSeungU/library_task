@@ -85,5 +85,15 @@ public class Book<T> extends Memeber {
 	public void setBorrow(boolean isBorrow) {
 		this.isBorrow = isBorrow;
 	}
+
+	public boolean isAvailable() {
+		//반복자 lterator와 contain를 사용하여 
+		return false;
+	}
+
+	public void returnBook() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
