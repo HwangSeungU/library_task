@@ -7,7 +7,7 @@ import exceptionManager.BookNotAvailableException;
 import memberManager.Member;
 
 public class LibraryService {
-	
+
 //   서비스 로직 설계자   LibraryService     리스트 인터페이스 객체
 //   //★팀과제          					도서 목록 출력 메소드
 //                     					도서 검색 메소드 
@@ -37,7 +37,7 @@ public class LibraryService {
 		//대출중인 책과 비교 = 대출중인지 확인!
 		Member checkedBorrow= new Member();
 		if(getTitle.equals(checkedBorrow.checkBooks())){
-			//대출 가능시 대출하시겠습니다? 출력
+			//대출 가능시 대출하시겠습니다? 출력ㅁ
 			System.out.println(getName +" 님 "+ getTitle+ " 을/를 대출 하시겠습니까?" );			
 		}else {
 			//대출 불가시 throw BookNotAvailableException 
