@@ -17,6 +17,8 @@ public class  User {
 	private String id;
 	private String password;
 	
+	static Map<String, User> userMap = new HashMap<>();
+	
 	//전체를 받는 생성자
 	public User(String name, String phoneNumber, String id, String password) {
 		this.name = name;
@@ -90,10 +92,9 @@ public class  User {
 	
 	
 	
-	static Map<String, User> userMap = new HashMap<>();
 
 	// 회원 추가
-	public void signUpUser(Map<String, User> userMap, User user) {
+	public static void signUpUser(User user) {
 		if (userMap.containsKey(user.getId())) {
 			System.out.println("중복된 ID입니다.");
 		} else {
@@ -105,7 +106,7 @@ public class  User {
 	}
 
 	// 조회
-	public void searchUser(Map<String, User> userMap, User user, String id, String password) {
+	public static void searchUser(User user, String id, String password) {
 		if (userMap.containsKey(userMap.containsKey(id))) {
 			System.out.println(user.getId() + "아이디의 회원 이름 : " + user.getName());
 			System.out.println(user.getId() + "아이디의 회원 전화번호 : " + user.getPhoneNumber());
@@ -115,16 +116,19 @@ public class  User {
 	}
 
 	// 로그인
-	public void login(String id, String password) {
+	public static boolean login(String id, String password) {
 		if (userMap.containsKey(id)) {
 			User u = userMap.get(id);
 			if (u.getPassword().equals(password)) {
 				System.out.println(u.getName() + "회원님 로그인 성공하셨습니다.");
+				return true;
 			} else {
 				System.out.println("비밀번호가 일치하지 않습니다.");
+				return false;
 			}
 		} else {
 			System.out.println("존재하지 않는 id 입니다.");
+			return false;
 		}		
 	}
 

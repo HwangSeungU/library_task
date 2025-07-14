@@ -91,4 +91,16 @@ public class BookList {
 			booklist.add(findBookIdx-1, book);
 		}
 	}
+	
+	// 메인 작업 중 추가
+	//책 id를 통해 책을 찾는 메서드
+	public Book searchIdBook(int id) {
+		for(int i=0; i<booklist.size(); i++) {
+			Book bookList = booklist.get(i);
+			if(bookList.getBookID() == id) {
+				return bookList;
+			}
+		}
+		return null;
+	}
 }

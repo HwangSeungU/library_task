@@ -31,11 +31,12 @@ public class Member extends User{//User로 바꿔서 해야함
 
 	// 로그인 메소드 오버라이딩
 	//UserManager 메소드 전부 User로 이동시켜서 User에서 상속받아서 login 메소드 이용할 수 있게 적용
-	@Override
-	public void login(String id, String password) {
-		super.login(id, password);
-		System.out.println("로그인 성공");
-	}
+	//static 메소드로 login을 메소드 변경하여서 오버라이딩 필요 X
+//	@Override
+//	public void login(String id, String password) {
+//		super.login(id, password);
+//		System.out.println("로그인 성공");
+//	}
 
 	
 	// 도서 대출 메소드
