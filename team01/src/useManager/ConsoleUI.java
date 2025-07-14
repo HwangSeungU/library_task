@@ -1,5 +1,6 @@
 package useManager;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import bookManager.Book;
@@ -35,7 +36,8 @@ public void login(Scanner sc) {
             id = sc.nextLine();
             System.out.print("PASSWORD 입력 : \n");
             pw = sc.nextLine();
-            if(User.login(id,pw)) {
+            User loginU = User.login(id, pw);
+            if(loginU != null) {
             	consol(sc);
             } else {
             	System.out.println("프로그램을 강제로 종료합니다.");
@@ -53,7 +55,7 @@ public void login(Scanner sc) {
             id = sc.nextLine();
             System.out.print("비밀번호 : ");
             pw = sc.nextLine();
-            User addUser = new User(name, phoneNumber,id,pw);
+            User addUser = new Member(name, phoneNumber,id,pw, new ArrayList<>());
             User.signUpUser(addUser);
             break;
          case 3:
@@ -74,7 +76,6 @@ public void login(Scanner sc) {
       while (true) {
          ConsoleUI.menu("목록 확인", "책 대출하기", "반납 하기", "내 대여 목록 확인" ,"뒤로가기");
          BookList bl = new BookList();
-         Member member = new Member(null, null, null, null, null);
          button = sc.nextInt();
          sc.nextLine();
          switch (button) {
@@ -86,13 +87,6 @@ public void login(Scanner sc) {
         	 System.out.print("대출할 책 ID를 입력해주세요 : ");
         	 int bookId = sc.nextInt();
         	 Book searchIdBook = bl.searchIdBook(bookId);
-//        	 if(searchIdBook == null) {
-//        		 System.out.println("입력하신 ID는 존재하지 않는 ID 입니다.");
-//        	 }else if(!searchIdBook.isBorrow()) {
-//        		 System.out.println(searchIdBook.getTitle() + " 대출 완료");
-//        	 }else {
-//        		 System.out.println("대출할 수 없는 책입니다.");
-//        	 }
         	 
             break;
          case 3:

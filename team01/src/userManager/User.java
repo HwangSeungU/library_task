@@ -116,21 +116,19 @@ public class  User {
 	}
 
 	// 로그인
-	public static boolean login(String id, String password) {
+	public static User login(String id, String password) {
 		if (userMap.containsKey(id)) {
-			User u = userMap.get(id);
-			if (u.getPassword().equals(password)) {
-				System.out.println(u.getName() + "회원님 로그인 성공하셨습니다.");
-				return true;
+			User user = userMap.get(id);
+			if (user.getPassword().equals(password)) {
+				System.out.println(user.getName() + "회원님 로그인 성공하셨습니다.");
+				return user;
 			} else {
 				System.out.println("비밀번호가 일치하지 않습니다.");
-				return false;
 			}
 		} else {
 			System.out.println("존재하지 않는 id 입니다.");
-			return false;
 		}		
+		return null;
 	}
-
 	
 }
