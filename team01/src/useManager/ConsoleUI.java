@@ -89,7 +89,6 @@ public void login(Scanner sc) {
         	 if(searchIdBook == null) {
         		 System.out.println("입력하신 ID는 존재하지 않는 ID 입니다.");
         	 }else if(!searchIdBook.isBorrow()) {
-        		 bl.addBook(searchIdBook);
         		 System.out.println(searchIdBook.getTitle() + " 대출 완료");
         	 }else {
         		 System.out.println("대출할 수 없는 책입니다.");
