@@ -16,6 +16,7 @@ public class Book {
 		this.isBorrow = isBorrow;
 	}
 	
+	
 	//책을 추가할때 사용할 생성자
 	public Book(String title, String author) {
 		super();
@@ -79,9 +80,16 @@ public class Book {
 	}
 	
 	public boolean isAvailable(Book book) {
+		System.out.println("isAvailable 들옴");
+		System.out.println(book);
+		if(bookList == null) {
+			System.out.println("bookList 여기서 null");
+		}
 		if(bookList.findBook(book) == -1) {
+			System.out.println("fals전");
 			return false;
 		}else {
+			System.out.println("true전");
 			return true;
 		}
 	}

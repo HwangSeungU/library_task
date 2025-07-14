@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 import bookManager.Book;
 import bookManager.BookList;
+import exceptionManager.BookAlreadyException;
+import exceptionManager.BookNotAvailableException;
+import exceptionManager.MaxBorrowException;
 import memberManager.Member;
 import userManager.User;
 
@@ -38,7 +41,7 @@ public void login(Scanner sc) {
             pw = sc.nextLine();
             User loginU = User.login(id, pw);
             if(loginU != null) {
-            	consol(sc);
+            	consol(sc, loginU);
             } else {
             	System.out.println("프로그램을 강제로 종료합니다.");
             	return;
@@ -72,10 +75,13 @@ public void login(Scanner sc) {
       } 
    }
    
-    public void consol(Scanner sc) {
+    public void consol(Scanner sc, User addUser) {
       while (true) {
          ConsoleUI.menu("목록 확인", "책 대출하기", "반납 하기", "내 대여 목록 확인" ,"뒤로가기");
          BookList bl = new BookList();
+         Member member = new Member(addUser.getName(), addUser.getPhoneNumber(), addUser.getId(), addUser.getPassword(), new ArrayList<Book>());
+       int bookId = 0;
+       Book searchIdBook = null;
          button = sc.nextInt();
          sc.nextLine();
          switch (button) {
@@ -85,16 +91,32 @@ public void login(Scanner sc) {
         	 break;
          case 2:
         	 System.out.print("대출할 책 ID를 입력해주세요 : ");
-        	 int bookId = sc.nextInt();
-        	 Book searchIdBook = bl.searchIdBook(bookId);
-        	 
+        	 bookId = sc.nextInt();
+        	 sc.nextLine();
+        	 searchIdBook = bl.searchIdBook(bookId);
+//        	 System.out.println(searchIdBook);
+//        	 System.out.println(addUser.getName());
+        	 try {
+				member.borrowBook(searchIdBook);
+			} catch (BookAlreadyException | MaxBorrowException | BookNotAvailableException e) {
+				e.printStackTrace();
+			}
             break;
          case 3:
             //반납하는 메소드
-            System.out.println("반납");
+        	System.out.println("반납하실 도서의 id를 입력해주세요");
+        	bookId = sc.nextInt();
+        	sc.nextLine();
+        	searchIdBook = bl.searchIdBook(bookId);
+            try {
+				member.returnBook(searchIdBook);
+			} catch (BookNotAvailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             break;   
          case 4 : 
-        	 System.out.println("현재 내 대여 목록");
+        	 member.checkBooks();
         	 break;
          case 5 : 
         	 //완전 종료

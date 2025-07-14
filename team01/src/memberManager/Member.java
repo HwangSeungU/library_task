@@ -10,7 +10,7 @@ import userManager.User;
 
 public class Member extends User{//User로 바꿔서 해야함
 	//booklist 메소드를 사용하기 위한 객체 선언
-	private BookList bookList;
+	private BookList bookList = new BookList();
 	
 	// List 필드 - 책 저장 리스트
 	
@@ -51,16 +51,22 @@ public class Member extends User{//User로 바꿔서 해야함
 
 	public void borrowBook(Book book) 
 			throws BookAlreadyException, MaxBorrowException, BookNotAvailableException  {
+//		System.out.println("메소드 들어옴1");
 		if(borrowedBooks.contains(book)) {
+//			System.out.println("메소드 들어옴2");
 			throw new BookAlreadyException();
 			}
 		if(borrowedBooks.size() >= MAX) {
+//			System.out.println("메소드 들어옴3");
 			throw new MaxBorrowException();
 			}
+//		System.out.println("메소드 들어옴4");
 
-		if(!book.isAvailable(book)) {//책이 사용가능 상태인지 확인
-			throw new BookNotAvailableException();
-		}
+//		if(!book.isAvailable(book)) {//책이 사용가능 상태인지 확인
+//			System.out.println("메소드 들어옴5");
+//			throw new BookNotAvailableException();
+//		}
+//		System.out.println("메소드 들어옴6");
 		borrowedBooks.add(book); //대출목록에 책 추가
 		bookList.borrow(book);
 		System.out.println("대출 성공. 대출한 책 제목: " + book.getTitle());
