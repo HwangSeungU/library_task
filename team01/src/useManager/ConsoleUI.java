@@ -1,11 +1,10 @@
 package useManager;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 import bookManager.Book;
 import bookManager.BookList;
+import memberManager.Member;
 import userManager.User;
 
 
@@ -75,6 +74,7 @@ public void login(Scanner sc) {
       while (true) {
          ConsoleUI.menu("목록 확인", "책 대출하기", "반납 하기", "내 대여 목록 확인" ,"뒤로가기");
          BookList bl = new BookList();
+         Member member = new Member(null, null, null, null, null);
          button = sc.nextInt();
          sc.nextLine();
          switch (button) {
@@ -86,13 +86,14 @@ public void login(Scanner sc) {
         	 System.out.print("대출할 책 ID를 입력해주세요 : ");
         	 int bookId = sc.nextInt();
         	 Book searchIdBook = bl.searchIdBook(bookId);
-        	 if(searchIdBook == null) {
-        		 System.out.println("입력하신 ID는 존재하지 않는 ID 입니다.");
-        	 }else if(!searchIdBook.isBorrow()) {
-        		 System.out.println(searchIdBook.getTitle() + " 대출 완료");
-        	 }else {
-        		 System.out.println("대출할 수 없는 책입니다.");
-        	 }
+//        	 if(searchIdBook == null) {
+//        		 System.out.println("입력하신 ID는 존재하지 않는 ID 입니다.");
+//        	 }else if(!searchIdBook.isBorrow()) {
+//        		 System.out.println(searchIdBook.getTitle() + " 대출 완료");
+//        	 }else {
+//        		 System.out.println("대출할 수 없는 책입니다.");
+//        	 }
+        	 
             break;
          case 3:
             //반납하는 메소드

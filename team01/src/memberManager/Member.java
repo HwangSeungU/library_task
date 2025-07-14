@@ -13,6 +13,7 @@ public class Member extends User{//User로 바꿔서 해야함
 	private BookList bookList;
 	
 	// List 필드 - 책 저장 리스트
+	
 	ArrayList<Book> borrowedBooks = new ArrayList<>();
 	private final int MAX = 20;
 
