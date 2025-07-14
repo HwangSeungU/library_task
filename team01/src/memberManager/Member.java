@@ -1,14 +1,16 @@
 package memberManager;
 import java.util.ArrayList;
-import java.util.List;
 
 import bookManager.Book;
+import bookManager.BookList;
 import exceptionManager.BookAlreadyException;
 import exceptionManager.BookNotAvailableException;
 import exceptionManager.MaxBorrowException;
 import userManager.User;
 
 public class Member extends User{//User로 바꿔서 해야함
+	//booklist 메소드를 사용하기 위한 객체 선언
+	private BookList bookList;
 	
 	// List 필드 - 책 저장 리스트
 	ArrayList<Book> borrowedBooks = new ArrayList<>();
@@ -27,8 +29,7 @@ public class Member extends User{//User로 바꿔서 해야함
 		super.login(id, password);
 		System.out.println("로그인 성공");
 	}
-	
-	// 도서 대출 메소드
+	// 도서 대출 메소드/
 		//borrowBook 
 	public void borrowBook(Book book) 
 			//  이미 책을 빌렸는지 최대로 빌린 상태인지 책이 사용상태인지
@@ -39,11 +40,11 @@ public class Member extends User{//User로 바꿔서 해야함
 		if(borrowedBooks.size() >= MAX_BORROW) {//최대 대출보다 작은지 확인
 			throw new MaxBorrowException();
 			}
-		if(!book.isAvailable()) {//책이 사용가능 상태인지 확인
+		if(!book.isAvailable(book)) {//책이 사용가능 상태인지 확인
 			throw new BookNotAvailableException();
 		}
 		borrowedBooks.add(book); //대출목록에 책 추가
-		book.borrow();
+		bookList.borrow(book);
 		System.out.println("대출 성공. 대출한 책 제목: " + book.getTitle());
 	}	
 
@@ -54,7 +55,7 @@ public class Member extends User{//User로 바꿔서 해야함
 			throw new BookNotAvailableException();
 			}
 		borrowedBooks.remove(book);
-		book.returnBook();
+		bookList.returnBook(book);
 		System.out.println("반납 성공. 반납한 책 제목: " + book.getTitle());
 	}
 	// 대출 중인 책 메소드

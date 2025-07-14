@@ -1,99 +1,89 @@
 package bookManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-//	- Book 클래스 설계
-//	도서와 관련된 기본정보
-//	도서 대출 메소드 오버라이딩
-//	equals, hashCode 오버라이딩
-
-public class Book<T> extends Memeber {
+public class Book {
 	// 필드
-	private int bookID; //책 id
-	private String bookTitle; // 책 제목
-	private String author; // 작가
-	private boolean isBorrow;// 빌린여부
+	private int bookID;
+	private String title;
+	private String author;
+	private boolean isBorrow;
+	private BookList bookList;
 
 	// 생성자
-	public Book(int bookID, String bookTitle, String author, boolean isBorrow) {
-		super();
+	public Book(int bookID, String title, String author, boolean isBorrow) {
 		this.bookID = bookID;
-		this.bookTitle = bookTitle;
+		this.title = title;
 		this.author = author;
 		this.isBorrow = isBorrow;
 	}
 	
-	//arraylist 선언
-	//책 목록 리스트 (20권 id는 1~20
-//	booklist.add(new Book(1,"title","auther",false));
-	
-	//메소드
-	//책 제목으로 리스트에서 책을 찾는 메소드
-	// -> 리스트를 반복자(iterator)를 사용하여 훑어본 다음에 
-	//책
-
-	/*--------오버라이딩-----------*/
-	// hashCode - 구분 대상은 bookID
-	@Override 
-	public int hashCode() {
-		return this.bookID;
+	//책을 추가할때 사용할 생성자
+	public Book(String title, String author) {
+		super();
+		this.title = title;
+		this.author = author;
 	}
 
-	// equals - 책 제목이 동일하다면
-	@Override
-	public boolean equals(Object obj) {
-		if(obj== this) {
-			return true;
-		}
-		if(obj instanceof Book) {
-			String other = ((Book)obj).bookTitle;
-			if(this.bookTitle.length() == other.length()) {
-				for(int i=0;i<bookTitle.length();i++) {
-					if(this.bookTitle.charAt(i)!= other.charAt(i)) {
-						return false;
-					}//책 제목 한글자씩 비교
-				}//책 제목만큼 반복 for
-			}//책.Title과 동일하다면
-			return true;
-		}
-		return false;
-	}
-	// 도서 대출 메소드
 
 	// getter, setter
-	public String getBookTitle() {
-		return bookTitle;
+	public boolean isBorrow() {
+		return isBorrow;
+	}
+	
+	public void setBorrow(boolean isBorrow) {
+		this.isBorrow = isBorrow;
 	}
 
-	public void setBookTitle(String bookTitle) {
-		this.bookTitle = bookTitle;
+	public int getBookID() {
+		return bookID;
+	}
+	
+	public void setBookID(int bookID) {
+		this.bookID = bookID;
+	}
+
+	public String getTitle() {
+		return title;
 	}
 
 	public String getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	// 오버라이딩 	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return bookID;
 	}
 
-	public boolean isBorrow() {
-		return isBorrow;
-	}
-
-	public void setBorrow(boolean isBorrow) {
-		this.isBorrow = isBorrow;
-	}
-
-	public boolean isAvailable() {
-		//반복자 lterator와 contain를 사용하여 
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj) {
+			return true;
+		}
+		if(obj instanceof Book) {
+			Book otherbook = (Book)obj;
+//			System.out.println(this);
+//			System.out.println(otherbook);
+//			System.out.print("author: "+this.author.equals(otherbook.author));
+//			System.out.println("  title: " +this.title.equals(otherbook.title));
+			return (this.author.equals(otherbook.author) && this.title.equals(otherbook.title));
+		}
+		
 		return false;
 	}
 
-	public void returnBook() {
-		// TODO Auto-generated method stub
-		
+	@Override
+	public String toString() {
+		return "[Book] ID: "+bookID+", title: "+title+", author: "+author+", isborrow: "+isBorrow;
 	}
 	
+	public boolean isAvailable(Book book) {
+		if(bookList.findBook(book) == -1) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
 }
