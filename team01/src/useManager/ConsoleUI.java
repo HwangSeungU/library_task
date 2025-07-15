@@ -75,12 +75,12 @@ public void login(Scanner sc) {
       } 
    }
    
-    public void consol(Scanner sc, User addUser, Book bl) {
-    	BookList bl = new BookList();
+    public void consol(Scanner sc, User addUser) {
       while (true) {
          ConsoleUI.menu("목록 확인", "책 대출하기", "반납 하기", "내 대여 목록 확인" ,"뒤로가기");
          Member member = (Member) addUser;
        int bookId = 0;
+       BookList bl = new BookList();
        Book searchIdBook = null;
          button = sc.nextInt();
          sc.nextLine();
@@ -111,7 +111,6 @@ public void login(Scanner sc) {
             try {
 				member.returnBook(searchIdBook);
 			} catch (BookNotAvailableException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             break;   
