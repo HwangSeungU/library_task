@@ -47,7 +47,7 @@ public class BookList {
 	}
 
 	// 모든 책을 출력
-	public void printAll() {
+	public static void printAll() {
 		for (Book b : booklist) {
 			System.out.println(b);
 		}

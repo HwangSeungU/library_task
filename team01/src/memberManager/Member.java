@@ -20,7 +20,7 @@ public class Member extends User{//User로 바꿔서 해야함
 	// 생성자 
 	public Member(String name, String phoneNumber, String id, String password, ArrayList<Book> borrowedBooks) {
 		super(name, phoneNumber, id, password);
-		this.borrowedBooks = borrowedBooks;
+		this.borrowedBooks = new ArrayList<>();
 	}
 
 	
@@ -62,11 +62,18 @@ public class Member extends User{//User로 바꿔서 해야함
 			}
 //		System.out.println("메소드 들어옴4");
 
+		
+		
 //		if(!book.isAvailable(book)) {//책이 사용가능 상태인지 확인
 //			System.out.println("메소드 들어옴5");
 //			throw new BookNotAvailableException();
 //		}
+		
+		
+		
+		
 //		System.out.println("메소드 들어옴6");
+		System.out.println(book);
 		borrowedBooks.add(book); //대출목록에 책 추가
 		bookList.borrow(book);
 		System.out.println("대출 성공. 대출한 책 제목: " + book.getTitle());

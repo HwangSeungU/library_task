@@ -75,11 +75,11 @@ public void login(Scanner sc) {
       } 
    }
    
-    public void consol(Scanner sc, User addUser) {
+    public void consol(Scanner sc, User addUser, Book bl) {
+    	BookList bl = new BookList();
       while (true) {
          ConsoleUI.menu("목록 확인", "책 대출하기", "반납 하기", "내 대여 목록 확인" ,"뒤로가기");
-         BookList bl = new BookList();
-         Member member = new Member(addUser.getName(), addUser.getPhoneNumber(), addUser.getId(), addUser.getPassword(), new ArrayList<Book>());
+         Member member = (Member) addUser;
        int bookId = 0;
        Book searchIdBook = null;
          button = sc.nextInt();
