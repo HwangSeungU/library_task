@@ -88,7 +88,7 @@ public class Member extends User{//User로 바꿔서 해야함
 			throw new BookNotAvailableException();
 			}
 		borrowedBooks.remove(book);
-		bookList.returnBook(book);
+		bookList.returnBook(book); //booklist의 isborrow 변형
 		System.out.println("반납 성공. 반납한 책 제목: " + book.getTitle());
 	}
 	

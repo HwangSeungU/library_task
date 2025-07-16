@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookList {
-	public static List<Book> booklist ;
+	public static List<Book> booklist;
 //	Iterator<Book> iter = booklist.iterator();
 
 	// 생성자
@@ -29,7 +29,7 @@ public class BookList {
 
 	}
 
-	// 리스트에 책 추가
+	// booklist에 책 추가
 	public void addBook(Book book) {
 		if (booklist.contains(book)) {// 대출이 되는 책인지 확인
 			System.out.println("책은 이미 준비되어있습니다");
@@ -41,12 +41,12 @@ public class BookList {
 		System.out.println(book);
 	}
 
-	// 리스트에서 책 삭제
+	// booklist에서 책 삭제
 	public void removeBook(int bookID) {
 		booklist.remove(bookID);
 	}
 
-	// 모든 책을 출력
+	// booklist의 모든 책을 출력
 	public static void printAll() {
 		for (Book b : booklist) {
 			System.out.println(b);
@@ -58,13 +58,38 @@ public class BookList {
 	public static List<Book> getBooklist() {
 		return booklist;
 	}
-	
+
+	//////// booklist isborrow 변형 /////
+	// 책 대출 메소드 - booklist의 isborrow 변수를 대출할때 true로 바꿈
+	public void borrow(Book book) {
+		int findBookIdx = findBook(book);
+		if (findBookIdx == -1)
+			System.out.println("책을 찾을 수 없습니다.");
+		else {
+			book.setBorrow(true);
+			booklist.add(findBookIdx - 1, book);
+		}
+	}
+
+	// 책 반납 메소드 - booklist의 isborrow 변수를 대출할때 false로 바꿈
+	public void returnBook(Book book) {
+		int findBookIdx = findBook(book);
+		if (findBookIdx == -1)
+			System.out.println("책을 찾을 수 없습니다.");
+		else {
+			book.setBorrow(false);
+			booklist.add(findBookIdx - 1, book);
+		}
+	}
+
+	/******* booklist에서 책 찾는 메소드 *******/
+	// book 객체를 매개변수로 받아서 booklist에 해당하는 객체가 몇번 index인지 반환하는 메소드
 	public int findBook(Book book) {
-		for(int i=0;i<booklist.size();i++) {
+		for (int i = 0; i < booklist.size(); i++) {
 //			System.out.println(i);
-//		System.out.println(booklist.get(i));
+//		System.out.println(booklist.get(i)); //index 에 해당하는 Book 객체 출력
 //		System.out.println(book);
-			if(booklist.get(i).equals(book)) { 
+			if (booklist.get(i).equals(book)) {
 				return book.getBookID();
 			}
 		}
@@ -72,36 +97,43 @@ public class BookList {
 		System.out.println("return전");
 		return -1;
 	}
-	
-	//책 대출 메소드
-	public void borrow(Book book) {
-		int findBookIdx = findBook(book);
-		if(findBookIdx == -1) System.out.println("책을 찾을 수 없습니다.");
-		else {
-			book.setBorrow(true);
-			booklist.add(findBookIdx-1, book);
-		}
-	}
-	
-	//책 반납 메소드
-	public void returnBook(Book book) {
-		int findBookIdx = findBook(book);
-		if(findBookIdx == -1) System.out.println("책을 찾을 수 없습니다.");
-		else {
-			book.setBorrow(false);
-			booklist.add(findBookIdx-1, book);
-		}
-	}
-	
-	// 메인 작업 중 추가
-	//책 id를 통해 책을 찾는 메서드
+
+	// 책 id를 통해 책을 찾는 메서드
 	public Book searchIdBook(int id) {
-		for(int i=0; i<booklist.size(); i++) {
+		for (int i = 0; i < booklist.size(); i++) {
 			Book bookList = booklist.get(i);
-			if(bookList.getBookID() == id) {
+			if (bookList.getBookID() == id) {
 				return bookList;
 			}
 		}
 		return null;
 	}
+
+	// 책 제목 (String)으로 책을 찾는 메소드
+	public Book searchTitleBook(String title) {
+		for (int i = 0; i < booklist.size(); i++) {
+			Book book = booklist.get(i);
+			if (book.getTitle().equals(title)) {
+				return booklist.get(i);
+			}
+		}
+//		throws new BookNotAvailableException();
+//		System.out.println("return전"); 
+		System.out.println("제목이 " +title + "인 책이 booklist에 없습니다.\n null book 객체를 리턴합니다");
+		return null;
+	}
+	// 작가(String)으로 책을 찾는 메소드
+	public Book searchAuthorBook(String author) {
+		for (int i = 0; i < booklist.size(); i++) {
+			Book book = booklist.get(i);
+			if (book.getAuthor().equals(author)) {
+				return booklist.get(i);
+			}
+		}
+//		throws new BookNotAvailableException();
+//		System.out.println("return전"); 
+		System.out.println("작가가 "+author + "인 책이 booklist에 없습니다.\n null book 객체를 리턴합니다");
+		return null;
+	}
 }
+
