@@ -116,6 +116,7 @@ public void login(Scanner sc) {
             try {
 				ls.returnBook(member,searchIdBook.getTitle());
 			} catch (BookNotAvailableException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             break;   
