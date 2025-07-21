@@ -79,7 +79,6 @@ public class BookList {
 		if(findBookIdx == -1) System.out.println("책을 찾을 수 없습니다.");
 		else {
 			book.setBorrow(true);
-			booklist.add(findBookIdx-1, book);
 		}
 	}
 	
@@ -89,13 +88,12 @@ public class BookList {
 		if(findBookIdx == -1) System.out.println("책을 찾을 수 없습니다.");
 		else {
 			book.setBorrow(false);
-			booklist.add(findBookIdx-1, book);
 		}
 	}
 	
 	// 메인 작업 중 추가
 	//책 id를 통해 책을 찾는 메서드
-	public Book searchIdBook(int id) {
+	public static Book searchIdBook(int id) {
 		for(int i=0; i<booklist.size(); i++) {
 			Book bookList = booklist.get(i);
 			if(bookList.getBookID() == id) {
@@ -104,4 +102,14 @@ public class BookList {
 		}
 		return null;
 	}
+	public static Book searchTitleBook(String bookTitle) {
+		for(int i=0; i<booklist.size(); i++) {
+			Book bookList = booklist.get(i);
+			if(bookList.getTitle() == bookTitle) {
+				return bookList;
+			}
+		}
+		return null;
+	}
+	
 }
