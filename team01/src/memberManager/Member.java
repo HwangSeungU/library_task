@@ -92,10 +92,20 @@ public class Member extends User{//User로 바꿔서 해야함
 	// 대출 중인 책 메소드
 	//checkBooks 대출중인 책이 있는지 보기
 	//book 클래스에 Title getter로 해주시면 그대로 사용할게요
-	public void checkBooks() { 
+	public ArrayList<Book> checkBooks() { 
+		if(borrowedBooks.isEmpty()) {
+			return null;
+		} 
+		else {
+			System.out.println(borrowedBooks);
+			return borrowedBooks;
+		}
+	}
+	public void checkBook() {
 		if(borrowedBooks.isEmpty()) {
 			System.out.println("대출 중이 아닙니다");
-		} else {
+		}
+		else {
 			System.out.println("대출 목록");
 			for(Book book : borrowedBooks) {
 				System.out.println(book.getTitle());

@@ -9,6 +9,7 @@ import exceptionManager.BookAlreadyException;
 import exceptionManager.BookNotAvailableException;
 import exceptionManager.MaxBorrowException;
 import memberManager.Member;
+import serviceManager.LibraryService;
 import userManager.User;
 
 
@@ -23,6 +24,7 @@ public class ConsoleUI {
    private int button = 0;
    // 로그인 기능
 public void login(Scanner sc) {
+	
       while (true) {
     	  String id = "";
     	  String pw = "";
@@ -76,6 +78,9 @@ public void login(Scanner sc) {
    }
    
     public void consol(Scanner sc, User addUser) {
+
+    	LibraryService ls = new LibraryService();
+
       while (true) {
          ConsoleUI.menu("목록 확인", "책 대출하기", "반납 하기", "내 대여 목록 확인" ,"뒤로가기");
          Member member = (Member) addUser;
@@ -87,17 +92,17 @@ public void login(Scanner sc) {
          switch (button) {
          case 1:
             //목록확인 메소드
-        	 bl.printAll();
+        	 BookList.printAll();
         	 break;
          case 2:
         	 System.out.print("대출할 책 ID를 입력해주세요 : ");
         	 bookId = sc.nextInt();
         	 sc.nextLine();
-        	 searchIdBook = bl.searchIdBook(bookId);
+        	 searchIdBook = BookList.searchIdBook(bookId);
 //        	 System.out.println(searchIdBook);
 //        	 System.out.println(addUser.getName());
         	 try {
-				member.borrowBook(searchIdBook);
+        		 ls.borrow(member,searchIdBook.getTitle());
 			} catch (BookAlreadyException | MaxBorrowException | BookNotAvailableException e) {
 				e.printStackTrace();
 			}
@@ -107,16 +112,16 @@ public void login(Scanner sc) {
         	System.out.println("반납하실 도서의 id를 입력해주세요");
         	bookId = sc.nextInt();
         	sc.nextLine();
-        	searchIdBook = bl.searchIdBook(bookId);
+        	searchIdBook = BookList.searchIdBook(bookId);
             try {
-				member.returnBook(searchIdBook);
+				ls.returnBook(member,searchIdBook.getTitle());
 			} catch (BookNotAvailableException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             break;   
          case 4 : 
-        	 member.checkBooks();
+        	 member.checkBook();
         	 break;
          case 5 : 
         	 //완전 종료
