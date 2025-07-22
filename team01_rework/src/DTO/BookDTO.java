@@ -8,14 +8,14 @@ public class BookDTO {
 //		   book_is_borrow varchar2(5),
 //		   CONSTRAINT pk_book PRIMARY key(book_id)
 //		);
-
+//dbms의 값의 변형을 방지하기 위해 사용하기 위해 private 접근제한자를 사용
 	private int bookId;
 	private String bookTitle;
 	private String bookAuthor;
 	private String bookIsBorrow;
-
+//값을 변경하고 사용하기 위해 get, set를 사용함
 	public int getBookId() {
-		return bookId;
+		return bookId; //
 	}
 
 	public void setBookId(int bookId) {
@@ -45,7 +45,7 @@ public class BookDTO {
 	public void setBookIsBorrow(String bookIsBorrow) {
 		this.bookIsBorrow = bookIsBorrow;
 	}
-
+//String 형태로 리턴값 반환 
 	@Override
 	public String toString() {
 		return "BookDTO [bookId=" + bookId + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor
