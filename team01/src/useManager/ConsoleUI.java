@@ -101,11 +101,11 @@ public void login(Scanner sc) {
         	 searchIdBook = BookList.searchIdBook(bookId);
 //        	 System.out.println(searchIdBook);
 //        	 System.out.println(addUser.getName());
-        	 try {
-        		 ls.borrow(member,searchIdBook.getTitle());
-			} catch (BookAlreadyException | MaxBorrowException | BookNotAvailableException e) {
-				e.printStackTrace();
-			}
+//        	 try {
+//        		 ls.borrow(member,searchIdBook.getTitle());
+//			} catch (BookAlreadyException | MaxBorrowException | BookNotAvailableException e) {
+//				e.printStackTrace();
+//			}
             break;
          case 3:
             //반납하는 메소드

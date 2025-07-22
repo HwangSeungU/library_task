@@ -70,7 +70,7 @@ public class Test {
 		
 //		회원정보 찾기
 //		존재할 경우 userNum 가져오고 없을경우 -1 반환
-		System.out.println(userDAO.findUser("testAccount", "1234", "01012345678"));
+//		System.out.println(userDAO.findUser("testAccount", "1234", "01012345678"));
 	}
 
 
