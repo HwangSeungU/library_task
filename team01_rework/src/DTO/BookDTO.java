@@ -12,7 +12,6 @@ public class BookDTO {
 	private int bookId;
 	private String bookTitle;
 	private String bookAuthor;
-	private String bookIsBorrow;
 
 	public int getBookId() {
 		return bookId;
@@ -38,18 +37,11 @@ public class BookDTO {
 		this.bookAuthor = bookAuthor;
 	}
 
-	public String getBookIsBorrow() {
-		return bookIsBorrow;
-	}
-
-	public void setBookIsBorrow(String bookIsBorrow) {
-		this.bookIsBorrow = bookIsBorrow;
-	}
 
 	@Override
 	public String toString() {
 		return "BookDTO [bookId=" + bookId + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor
-				+ ", bookIsBorrow=" + bookIsBorrow + "]";
+				+ "]";
 	}
 
 }
