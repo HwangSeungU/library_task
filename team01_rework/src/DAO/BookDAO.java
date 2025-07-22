@@ -4,12 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import DTO.BookDTO;
 
 // book에 관련된 메소드 생성 
 public class BookDAO {
 	public Connection connection;
 	public PreparedStatement preparedStatement;
 	public ResultSet resultSet;
+	public List<BookDTO> booklist = new ArrayList<>();
 
 	// 책 목록 출력
 	/**
@@ -71,12 +76,22 @@ public class BookDAO {
 	 * @throws 예외처리
 	 * @author team01 서진
 	 * @see 작가를 입력받고 해당하는 책을 찾은 후 그 책의 bookId를 반환하는 메소드
+	 * 		if(
 	 */
-	public void findBookAuthor(String author) {
-		String query = "";
+	public int findBookAuthor(String author) {
+		String query = "select "; 
+		//where bookAuthor = 입력값
 		
 		connection = DBConnecter.getConnection();
 		preparedStatement = connection.prepareStatement(query);
+		
+		resultSet = preparedStatement.executeQuery();
+		// resultSet은 쿼리의 결과(테이블)를 저장하고 있다
+
+		if (resultSet.next()) {
+			return -1;
+		}
+		return bookId;
 		
 	}
 
@@ -127,17 +142,15 @@ public class BookDAO {
 	 * @author team01 서진
 	 * @see 설명 
 	 */
-	public void removeBook(BookDTO bookDTO) {
-		String query = "";//DB에 행을 삭제하는 쿼리문
+	public void removeBook(int bookId) {
+		String query = "DELETE FROM TBL_USER WHERE BOOK_ID = ? ";
+		int result = 0;
+
 		try {
 			connection = DBConnecter.getConnection();
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1,bookDTO.getBookId());
-			preparedStatement.setString(2,bookDTO.getBookTitle());
-			preparedStatement.setString(3,bookDTO.getBookAuthor());
-			
-			preparedStatement.executeUpdate();
-			
+			preparedStatement.setInt(1, bookId);
+			result = preparedStatement.executeUpdate();
 			
 			
 			
