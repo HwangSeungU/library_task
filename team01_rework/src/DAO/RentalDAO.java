@@ -16,6 +16,7 @@ public class RentalDAO {
 
 //책 대여
 	// rental 테이블에 누가 어떤 책을 빌렸는지 저장하는 메소드
+	// userDTO.userNumber, bookDTO.bookId가 rentalDTO 안에 저장되어있어야함 
 	public void rentalUser(RentalDTO rentalDTO) {
 		String query = "insert into tbl_rental(user_number , book_id) " + "values(?,?)";
 		connection = DBConnecter.getConnection();
@@ -42,14 +43,17 @@ public class RentalDAO {
 	}
 
 //책 반납
-	public void returnUser(RentalDTO rentalDTO) {
+	// userDTO.userNumber, bookDTO.bookId가 rentalDTO 안에 저장되어있어야함 
+	// boolean return 있음 반납 성공시 true 실패시 false
+	public boolean returnUser(RentalDTO rentalDTO) {
 		String query = "delete from tbl_rental where user_number = ? and book_id = ? ";
 		connection = DBConnecter.getConnection();
+		int count = 0;
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, rentalDTO.getUserNumber());
 			preparedStatement.setInt(2, rentalDTO.getBookId());
-			preparedStatement.executeUpdate();
+			count = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("returnUser() 중 sql 오류 발생");
 			e.printStackTrace();
@@ -65,9 +69,12 @@ public class RentalDAO {
 				e.printStackTrace();
 			}
 		}
+		return count>0;
 	}
 
 	// 대여한 책 목록
+	//내(userDTO.userNumber)가 빌린 책 목록 출력
+	//userDTO.userNumber 필요함
 	public void bookList(int userNumber) {
 		String query = "SELECT book_title FROM tbl_book WHERE book_id "
 				+ "in (SELECT book_id FROM tbl_rental WHERE user_number = ?)";
