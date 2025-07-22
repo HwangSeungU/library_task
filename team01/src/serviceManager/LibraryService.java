@@ -1,15 +1,14 @@
 package serviceManager;
 
-import java.util.ArrayList;
+
 
 import bookManager.Book;
 import bookManager.BookList;
-import exceptionManager.BookAlreadyException;
 import exceptionManager.BookNotAvailableException;
 import exceptionManager.MaxBorrowException;
 import memberManager.Member;
 
-public class LibraryService {
+public class LibraryService extends BookList{
 
 //   서비스 로직 설계자   LibraryService     리스트 인터페이스 객체
 //   //★팀과제          					도서 목록 출력 메소드

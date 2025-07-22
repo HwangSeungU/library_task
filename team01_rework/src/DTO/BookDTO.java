@@ -1,13 +1,6 @@
 package DTO;
 
 public class BookDTO {
-//CREATE TABLE tbl_book(
-//		   book_id NUMBER,
-//		   book_title varchar2(100),
-//		   book_author varchar2(100),
-//		   book_is_borrow varchar2(5),
-//		   CONSTRAINT pk_book PRIMARY key(book_id)
-//		);
 
 	private int bookId;
 	private String bookTitle;
