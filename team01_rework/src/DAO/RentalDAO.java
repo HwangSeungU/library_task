@@ -14,34 +14,8 @@ public class RentalDAO {
 	public PreparedStatement preparedStatement;
 	public ResultSet resultSet;
 
-//	   
 //책 대여
-	// tbl_book 테이블의 책 빌린 상태를 true 로 변경하는 메소드
-	public void borrowBook(int bookId) {
-		String query = "update tbl_book set book_is_borrow = 'true' where book_id = ?";
-		connection = DBConnecter.getConnection();
-		try {
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1, bookId);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("borrowBook() 중 sql 오류 발생");
-			e.printStackTrace();
-		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	// true 변경 후 rental 테이블에 누가 어떤 책을 빌렸는지 저장하는 메소드
+	// rental 테이블에 누가 어떤 책을 빌렸는지 저장하는 메소드
 	public void rentalUser(RentalDTO rentalDTO) {
 		String query = "insert into tbl_rental(user_number , book_id) " + "values(?,?)";
 		connection = DBConnecter.getConnection();
@@ -68,30 +42,6 @@ public class RentalDAO {
 	}
 
 //책 반납
-	public void returnBook(int bookId) {
-		String query = "update tbl_book set book_is_borrow = 'false' where book_id = ?";
-		connection = DBConnecter.getConnection();
-		try {
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1, bookId);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("retrunBook() 중 sql 오류 발생");
-			e.printStackTrace();
-		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public void returnUser(RentalDTO rentalDTO) {
 		String query = "delete from tbl_rental where user_number = ? and book_id = ? ";
 		connection = DBConnecter.getConnection();
