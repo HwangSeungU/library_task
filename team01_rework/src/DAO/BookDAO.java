@@ -50,8 +50,9 @@ public class BookDAO {
 				System.out.println("책 목록이 비어있습니다.");
 			} else {
 				for (BookDTO book : booklist) {
-					System.out.println(book);
-				}
+		               String bookInfo = book.toString().substring(7);
+		               System.out.println(bookInfo);
+		            }
 			}
 
 		} catch (SQLException e) {
@@ -221,7 +222,8 @@ public class BookDAO {
 //		String query = "INSERT INTO TBL_BOOK VALUES(SEQ_BOOK.NEXTVAL,?,?)"
 //				+ " WHERE ? NOT IN (SELECT t.book_title FROM tbl_book t)"
 //				+ "AND ? NOT IN (SELECT a.book_author FROM tbl_book a );";
-		//해당쿼리를 사용하면 코드가 좀 더 단순해집니다. 
+		int bookinlist = -1;
+		bookinlist = findBook(title, author);
 		try {
 			// DB연결
 			connection = DBConnecter.getConnection();
@@ -232,11 +234,10 @@ public class BookDAO {
 			
 			// 두번쨰 query문을 사용할때는 여기부터 주석처리
 			// 이미 있는 도서 인지 확인 
-			int bookinlist = -1;
-			bookinlist = findBook(title, author);
 			if (bookinlist == -1) {// 만약에 넣으려는 책이 도서 목록에 없다면
 				// 완성된 쿼리문 보내기
 				preparedStatement.executeUpdate(); // select문이 아니므로 executeUpdate()사용
+				System.out.println("책 추가가 완료되었습니다.");
 			} else {
 				System.out.println("이미 준비된 도서 입니다.");
 			}
@@ -244,12 +245,11 @@ public class BookDAO {
 //			preparedStatement.setString(3, title);
 //			preparedStatement.setString(4, author);
 //			preparedStatement.executeUpdate(); 
-
-
 		} catch (SQLException e) {
 			System.out.println("bookADO.addBook() sql error");
 			e.printStackTrace();
-		} finally {
+		} 
+		finally {
 			try {
 				if (resultSet != null)
 					resultSet.close();
@@ -273,7 +273,7 @@ public class BookDAO {
 	 * 			해당하는 id가 없으면 시도는 하지만, 변화는 없을 것이다
 	 */
 	public void removeBook(int bookId) {
-		String query = "DELETE FROM TBL_USER WHERE BOOK_ID = ? ";
+		String query = "DELETE FROM TBL_BOOK WHERE BOOK_ID = ? ";
 		int result = -1;
 
 		try {
@@ -284,7 +284,7 @@ public class BookDAO {
 			preparedStatement.setInt(1, bookId);
 			// 쿼리문 보내기 -> DB에 해당하는 id가 없으면 실행은 하되, 아무런 변화가 없다. 
 			preparedStatement.executeUpdate();
-			System.out.println("bookId가 "+bookId+"인 책을 삭제했습니다.");
+			System.out.println("bookId가 "+ bookId +"인 책을 삭제했습니다.");
 
 		} catch (SQLException e) {
 			System.out.println("BookDAO.removeBook() sql error");

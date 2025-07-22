@@ -93,6 +93,7 @@ public class UserDAO {
 			preparedStatement.setString(2, userPassword);
 
 			resultSet = preparedStatement.executeQuery();
+			
 			if (resultSet.next()) {
 				userNumber = resultSet.getInt(1);
 			}

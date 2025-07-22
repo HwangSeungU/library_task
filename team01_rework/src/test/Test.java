@@ -45,7 +45,7 @@ public class Test {
 		
 //		로그인
 //		존재하는 계정 => user_number 추출
-//		System.out.println(userDAO.loginUser("testAccount", "1234"));
+//		System.out.println(userDAO.loginUser("admin", "admin1234"));
 //		존재하지 않는 계정 => -1 반환
 //		System.out.println(userDAO.loginUser("hello", "1111"));
 		
