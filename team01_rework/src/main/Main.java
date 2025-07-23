@@ -161,12 +161,17 @@ public class Main {
 				}
 				break;
 			case 5:
-				System.out.print("삭제할 회원의 회원번호를 입력해주세요 : ");
 				int num = 0;
+				System.out.print("삭제할 회원의 회원번호를 입력해주세요 : ");
 				num = sc.nextInt();
 				sc.nextLine();
 				System.out.println();
-				userDAO.userDelete(num);
+				if(userDAO.userDelete(num)) {
+					System.out.println("회원 삭제 완료");
+				}else {
+					System.out.println("존재 하지 않는 회원입니다.");
+				}
+				break;
 			default:
 				System.out.println("제시된 번호 외의 다른 번호를 입력하지 말아주세요.");
 				break;
