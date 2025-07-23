@@ -141,7 +141,12 @@ public class Main {
 				System.out.println("삭제할 책 id를 입력해주세요");
 				int input = 0;
 				input = Integer.parseInt(sc.nextLine());
-				bookDAO.removeBook(input);
+				if(bookDAO.removeBook(input)) {
+					System.out.println(input + " id인 책을 목록에서 삭제하였습니다.");
+				}else {
+					System.out.println("현재 책 리스트에 존재하는 id가 아닙니다.");
+				}
+
 				break;
 			case 4:
 				String name = "";

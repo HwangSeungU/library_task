@@ -50,9 +50,9 @@ public class BookDAO {
 				System.out.println("책 목록이 비어있습니다.");
 			} else {
 				for (BookDTO book : booklist) {
-		               String bookInfo = book.toString().substring(7);
-		               System.out.println(bookInfo);
-		            }
+					String bookInfo = book.toString().substring(7);
+					System.out.println(bookInfo);
+				}
 			}
 
 		} catch (SQLException e) {
@@ -124,7 +124,7 @@ public class BookDAO {
 	 * @return
 	 * @see bookTitle를 입력받고 해당하는 책을 찾은 후 그 책의 bookId를 반환해주는 메소드
 	 */
-	public int findBookTitle(String title,int userNumber) {
+	public int findBookTitle(String title, int userNumber) {
 		String query = "SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR FROM TBL_BOOK "
 				+ "WHERE BOOK_TITLE = ? AND book_id IN (SELECT book_id FROM tbl_rental WHERE user_number = ?)";
 		// 쿼리문의 결과는 다중행일 수 있지만 이 메소드에서는 제일 처음에 나온 값만 반환하고 종료한다.
@@ -206,8 +206,13 @@ public class BookDAO {
 
 	}// public int findBookAuthor() end
 
-	/********* 책 추가,삭제 *****************************************************************/
-	/** 책 추가 메소드
+	
+	/*********
+	 * 책 추가,삭제
+	 *****************************************************************/
+	/**
+	 * 책 추가 메소드
+	 * 
 	 * @see 설명 책 제목과 작가를 입력받고 해당하는 책을 도서 목록에 추가하는 메소드 DB에서 시퀀스로 순서대로 id를 할당하기 때문에
 	 *      bookId는 따로 받지 않음
 	 * @param 매개변수 String title, String author
@@ -215,8 +220,7 @@ public class BookDAO {
 	 * @throws 예외처리 sql 구문 오류, sql 연결 시 사용한 객체 close 오류
 	 */
 	public void addBook(String title, String author) {
-		String query = "INSERT INTO TBL_BOOK " 
-					+ "VALUES(SEQ_BOOK.NEXTVAL,?,?)";// DB에 행을 추가하는 쿼리문
+		String query = "INSERT INTO TBL_BOOK " + "VALUES(SEQ_BOOK.NEXTVAL,?,?)";// DB에 행을 추가하는 쿼리문
 //		String query = "INSERT INTO TBL_BOOK VALUES(SEQ_BOOK.NEXTVAL,?,?)"
 //				+ " WHERE ? NOT IN (SELECT t.book_title FROM tbl_book t)"
 //				+ "AND ? NOT IN (SELECT a.book_author FROM tbl_book a );";
@@ -229,9 +233,9 @@ public class BookDAO {
 			// SQL문 완성
 			preparedStatement.setString(1, title);
 			preparedStatement.setString(2, author);
-			
+
 			// 두번쨰 query문을 사용할때는 여기부터 주석처리
-			// 이미 있는 도서 인지 확인 
+			// 이미 있는 도서 인지 확인
 			if (bookinlist == -1) {// 만약에 넣으려는 책이 도서 목록에 없다면
 				// 완성된 쿼리문 보내기
 				preparedStatement.executeUpdate(); // select문이 아니므로 executeUpdate()사용
@@ -246,8 +250,7 @@ public class BookDAO {
 		} catch (SQLException e) {
 			System.out.println("bookADO.addBook() sql error");
 			e.printStackTrace();
-		} 
-		finally {
+		} finally {
 			try {
 				if (resultSet != null)
 					resultSet.close();
@@ -260,16 +263,18 @@ public class BookDAO {
 				e.printStackTrace();
 			}
 		}
-	} //public void addBook(title,author) end
+	} // public void addBook(title,author) end
 
-	/** 책 삭제 메소드
+	/**
+	 * 책 삭제 메소드
+	 * 
 	 * @param 매개변수 int bookId
 	 * @return 반환값 없음
 	 * @throws 예외처리 sql 구문 오류, sql 연결 시 사용한 객체 close 오류
-	 * @see 설명 bookID에 해당하는 int값을 받고 해당하는 책을 지우는 시도를 한다.
-	 * 			해당하는 id가 없으면 시도는 하지만, 변화는 없을 것이다
+	 * @see 설명 bookID에 해당하는 int값을 받고 해당하는 책을 지우는 시도를 한다. 해당하는 id가 없으면 시도는 하지만, 변화는
+	 *      없을 것이다
 	 */
-	public void removeBook(int bookId) {
+	public boolean removeBook(int bookId) {
 		String query = "DELETE FROM TBL_BOOK WHERE BOOK_ID = ? ";
 		int result = -1;
 
@@ -279,10 +284,10 @@ public class BookDAO {
 			preparedStatement = connection.prepareStatement(query);
 			// SQL문 완성
 			preparedStatement.setInt(1, bookId);
-			// 쿼리문 보내기 -> DB에 해당하는 id가 없으면 실행은 하되, 아무런 변화가 없다. 
-			preparedStatement.executeUpdate();
+			// 쿼리문 보내기 -> DB에 해당하는 id가 없으면 실행은 하되, 아무런 변화가 없다.
+			result = preparedStatement.executeUpdate();
 //			if(preparedStatement.executeUpdate()==)
-			System.out.println("bookId가 "+ bookId +"인 책을 삭제했습니다.");
+//			System.out.println("bookId가 "+ bookId +"인 책을 삭제했습니다.");
 
 		} catch (SQLException e) {
 			System.out.println("BookDAO.removeBook() sql error");
@@ -300,7 +305,8 @@ public class BookDAO {
 				e.printStackTrace();
 			}
 		}
-	} //publid void removeBook(int bookId) end
+		return result > 0;
+	} // publid void removeBook(int bookId) end
 
 	/****** 책 찾는 메소드 return List<> **********************************/
 
