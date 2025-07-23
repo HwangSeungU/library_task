@@ -1,4 +1,4 @@
-package DAO;
+package Book;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import DTO.BookDTO;
+import main.DBConnecter;
 
 // book에 관련된 메소드 생성 
 public class BookDAO {
