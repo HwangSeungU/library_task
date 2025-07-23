@@ -284,6 +284,7 @@ public class BookDAO {
 			preparedStatement.setInt(1, bookId);
 			// 쿼리문 보내기 -> DB에 해당하는 id가 없으면 실행은 하되, 아무런 변화가 없다. 
 			preparedStatement.executeUpdate();
+//			if(preparedStatement.executeUpdate()==)
 			System.out.println("bookId가 "+ bookId +"인 책을 삭제했습니다.");
 
 		} catch (SQLException e) {

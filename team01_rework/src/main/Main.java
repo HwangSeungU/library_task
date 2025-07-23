@@ -117,7 +117,7 @@ public class Main {
 	public void adminConsol(Scanner sc, int userNumber) {
 		System.out.println("관리자로 로그인합니다.");
 		while (true) {
-			Main.menu("책 리스트 확인", "책 추가", "책 삭제", "회원정보 수정", "유저 삭제");
+			Main.menu("책 리스트 확인", "책 추가", "책 삭제", "회원정보 수정", "유저 삭제", "종료");
 			BookDTO bookDTO = new BookDTO();
 			BookDAO bookDAO = new BookDAO();
 			UserDTO userDTO = new UserDTO();
@@ -172,6 +172,9 @@ public class Main {
 					System.out.println("존재 하지 않는 회원입니다.");
 				}
 				break;
+			case 6:
+				System.out.println("종료");
+				return;
 			default:
 				System.out.println("제시된 번호 외의 다른 번호를 입력하지 말아주세요.");
 				break;
