@@ -217,6 +217,7 @@ public class Main {
 				break;
 			case 3:
 				// 반납하는 메소드
+				rentalDAO.bookList(userNumber);
 				System.out.println("반납하실 도서의 id를 입력해주세요");
 				int bookId = 0;
 				bookId = sc.nextInt();
