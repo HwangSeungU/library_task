@@ -79,7 +79,6 @@ public class BookDAO {
 	 * @param 매개변수 String bookTitle, String author
 	 * @return 반환값 int bookId
 	 * @throws 예외처리 sql 구문 오류, sql 연결 시 사용한 객체 close 오류
-	 * @author team01 서진
 	 * @see 책 제목과 작가명을 입력받고 해당하는 책을 찾은 후 그 책의 bookId를 반환해주는 메소드
 	 */
 	public int findBook(String title, String author) {
@@ -122,12 +121,12 @@ public class BookDAO {
 	 * @param 매개변수 String bookTitle
 	 * @return 반환값 int bookId
 	 * @throws 예외처리 sql 구문 오류, sql 연결 시 사용한 객체 close 오류
-	 * @author team01 서진
 	 * @return
 	 * @see bookTitle를 입력받고 해당하는 책을 찾은 후 그 책의 bookId를 반환해주는 메소드
 	 */
-	public int findBookTitle(String title) {
-		String query = "SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR FROM TBL_BOOK " + "WHERE BOOK_TITLE = ?";
+	public int findBookTitle(String title,int userNumber) {
+		String query = "SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR FROM TBL_BOOK "
+				+ "WHERE BOOK_TITLE = ? AND book_id IN (SELECT book_id FROM tbl_rental WHERE user_number = ?)";
 		// 쿼리문의 결과는 다중행일 수 있지만 이 메소드에서는 제일 처음에 나온 값만 반환하고 종료한다.
 		int foundBookId = -1;
 
@@ -137,6 +136,7 @@ public class BookDAO {
 			preparedStatement = connection.prepareStatement(query);
 			// 쿼리 완성
 			preparedStatement.setString(1, title);
+			preparedStatement.setInt(2, userNumber);
 			// 값 받기
 			resultSet = preparedStatement.executeQuery();
 
@@ -167,7 +167,6 @@ public class BookDAO {
 	 * @param 매개변수 String bookAuthor
 	 * @return 반환값 int bookId
 	 * @throws 예외처리
-	 * @author team01 서진
 	 * @see 작가를 입력받고 해당하는 책을 찾은 후 제일 첫 책의 bookId(int)를 반환하는 메소드
 	 */
 	public int findBookAuthor(String author) {
@@ -214,7 +213,6 @@ public class BookDAO {
 	 * @param 매개변수 String title, String author
 	 * @return 없음
 	 * @throws 예외처리 sql 구문 오류, sql 연결 시 사용한 객체 close 오류
-	 * @author team01 이서진
 	 */
 	public void addBook(String title, String author) {
 		String query = "INSERT INTO TBL_BOOK " 
@@ -268,7 +266,6 @@ public class BookDAO {
 	 * @param 매개변수 int bookId
 	 * @return 반환값 없음
 	 * @throws 예외처리 sql 구문 오류, sql 연결 시 사용한 객체 close 오류
-	 * @author team01 서진
 	 * @see 설명 bookID에 해당하는 int값을 받고 해당하는 책을 지우는 시도를 한다.
 	 * 			해당하는 id가 없으면 시도는 하지만, 변화는 없을 것이다
 	 */
