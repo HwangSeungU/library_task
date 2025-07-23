@@ -124,9 +124,9 @@ public class BookDAO {
 	 * @return
 	 * @see bookTitle를 입력받고 해당하는 책을 찾은 후 그 책의 bookId를 반환해주는 메소드
 	 */
-	public int findBookTitle(String title, int userNumber) {
+	public int findBookTitle(String title) {
 		String query = "SELECT BOOK_ID, BOOK_TITLE, BOOK_AUTHOR FROM TBL_BOOK "
-				+ "WHERE BOOK_TITLE = ? AND book_id IN (SELECT book_id FROM tbl_rental WHERE user_number = ?)";
+				+ "WHERE BOOK_TITLE = ? AND book_id NOT IN (SELECT book_id FROM tbl_rental)";
 		// 쿼리문의 결과는 다중행일 수 있지만 이 메소드에서는 제일 처음에 나온 값만 반환하고 종료한다.
 		int foundBookId = -1;
 
@@ -136,7 +136,6 @@ public class BookDAO {
 			preparedStatement = connection.prepareStatement(query);
 			// 쿼리 완성
 			preparedStatement.setString(1, title);
-			preparedStatement.setInt(2, userNumber);
 			// 값 받기
 			resultSet = preparedStatement.executeQuery();
 

@@ -213,7 +213,7 @@ public class Main {
 				System.out.print("대출할 책 제목을 입력해주세요 : ");
 				bookName = sc.nextLine();
 				int result = 0;
-				result = bookDAO.findBookTitle(bookName,userNumber);
+				result = bookDAO.findBookTitle(bookName);
 				if (result > 0) {
 					System.out.println("대여한 책 번호 : " + result);
 					rentalDTO.setBookId(result);
