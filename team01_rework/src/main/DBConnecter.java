@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBConnecter {
 	public static Connection getConnection() {
-		// 연결 방법 xe 2에 kdt1으로
+		// 연결 방법 xe 에 team01으로
 		Connection connection = null;
 
 		// 연결에 필요한 정보
@@ -14,7 +14,6 @@ public class DBConnecter {
 		String Password = "1234";
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		// jdbc url은 구글링하면 나온다
-		// url은 주소를 어디로 전달할래? url을 정확하게 작성해야한다
 
 		try {
 			// 드라이버를 메모리에 할당 알트 쉬프트 제트

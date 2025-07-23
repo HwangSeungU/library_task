@@ -205,7 +205,7 @@ public class Main {
 				System.out.print("대출할 책 제목을 입력해주세요 : ");
 				bookName = sc.nextLine();
 				int result = 0;
-				result = bookDAO.findBookTitle(bookName);
+				result = bookDAO.findBookTitle(bookName,userNumber);
 				if (result > 0) {
 					System.out.println("대여한 책 번호 : " + result);
 					rentalDTO.setBookId(result);
@@ -217,6 +217,7 @@ public class Main {
 				break;
 			case 3:
 				// 반납하는 메소드
+				rentalDAO.bookList(userNumber);
 				System.out.println("반납하실 도서의 id를 입력해주세요");
 				int bookId = 0;
 				bookId = sc.nextInt();

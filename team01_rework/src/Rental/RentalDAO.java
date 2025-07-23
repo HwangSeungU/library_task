@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import main.DBConnecter;
 
@@ -76,25 +79,26 @@ public class RentalDAO {
 	//내(userDTO.userNumber)가 빌린 책 목록 출력
 	//userDTO.userNumber 필요함
 	public void bookList(int userNumber) {
-		String query = "SELECT book_title FROM tbl_book WHERE book_id "
+		String query = "SELECT book_title,book_id FROM tbl_book WHERE book_id "
 				+ "in (SELECT book_id FROM tbl_rental WHERE user_number = ?)";
 		connection = DBConnecter.getConnection();
-		List<String> bookList = new ArrayList<>();
+		Map<Integer,String> bookMap = new HashMap<>();
 		try {
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, userNumber);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String bookTitle = resultSet.getString("book_title");
-				bookList.add(bookTitle);
+				int bookId = resultSet.getInt("book_id");
+				bookMap.put(bookId, bookTitle);
 			}
-			  if(bookList.isEmpty()) {
+			  if(bookMap.isEmpty()) {
 		            System.out.println("책을 대여하고 있지 않습니다");
 		         }else{
-		            System.out.println("빌린 책 이름 : ");
-		            for(String bookTitle : bookList) {
-		               System.out.println(bookTitle);
-		            }
+		        		for(Entry<Integer,String> map : bookMap.entrySet()) {
+		        			System.out.println("빌린 도서 ID : "+map.getKey() +", 책 이름 : " +map.getValue());
+		        		}
+		            
 		         }
 		} catch (SQLException e) {
 			System.out.println("bookList() 중 sql 오류 발생");
