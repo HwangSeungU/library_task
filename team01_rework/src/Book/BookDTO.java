@@ -1,4 +1,4 @@
-package DTO;
+package Book;
 
 public class BookDTO {
 
@@ -7,7 +7,7 @@ public class BookDTO {
 	private String bookAuthor;
 
 	public int getBookId() {
-		return bookId;
+		return bookId; //
 	}
 
 	public void setBookId(int bookId) {
@@ -30,6 +30,7 @@ public class BookDTO {
 		this.bookAuthor = bookAuthor;
 	}
 
+//String 형태로 리턴값 반환 
 
 	@Override
 	public String toString() {

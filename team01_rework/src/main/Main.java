@@ -3,12 +3,12 @@ package main;
 import java.util.List;
 import java.util.Scanner;
 
-import DAO.BookDAO;
-import DAO.RentalDAO;
-import DAO.UserDAO;
-import DTO.BookDTO;
-import DTO.RentalDTO;
-import DTO.UserDTO;
+import Book.BookDAO;
+import Book.BookDTO;
+import Rental.RentalDAO;
+import Rental.RentalDTO;
+import user.UserDAO;
+import user.UserDTO;
 
 public class Main {
 	public static void main(String[] args) {
