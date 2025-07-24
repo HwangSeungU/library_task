@@ -1,4 +1,4 @@
-package user;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.DBConnecter;
+import DTO.UserDTO;
 
 public class UserDAO {
 	public Connection connection;
@@ -52,7 +52,7 @@ public class UserDAO {
 
 	// 회원 삭제
 	public boolean userDelete(int userNumber) {
-		String query = "DELETE TBL_USER WHERE USER_NUMBER = ?";
+		String query = "DELETE from TBL_USER WHERE USER_NUMBER = ?";
 		int result = 0;
 		connection = DBConnecter.getConnection();
 		try {

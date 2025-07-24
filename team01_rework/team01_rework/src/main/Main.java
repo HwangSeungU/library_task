@@ -3,12 +3,12 @@ package main;
 import java.util.List;
 import java.util.Scanner;
 
-import Book.BookDAO;
-import Book.BookDTO;
-import Rental.RentalDAO;
-import Rental.RentalDTO;
-import user.UserDAO;
-import user.UserDTO;
+import DAO.BookDAO;
+import DAO.RentalDAO;
+import DAO.UserDAO;
+import DTO.BookDTO;
+import DTO.RentalDTO;
+import DTO.UserDTO;
 
 public class Main {
 	public static void main(String[] args) {
@@ -117,7 +117,7 @@ public class Main {
 	public void adminConsol(Scanner sc, int userNumber) {
 		System.out.println("관리자로 로그인합니다.");
 		while (true) {
-			Main.menu("책 리스트 확인", "책 추가", "책 삭제", "회원정보 수정", "유저 삭제", "종료");
+			Main.menu("책 리스트 확인", "책 추가", "책 삭제", "회원정보 수정", "유저 삭제");
 			BookDTO bookDTO = new BookDTO();
 			BookDAO bookDAO = new BookDAO();
 			UserDTO userDTO = new UserDTO();
@@ -142,11 +142,10 @@ public class Main {
 				int input = 0;
 				input = Integer.parseInt(sc.nextLine());
 				if(bookDAO.removeBook(input)) {
-					System.out.println(input + " id인 책을 목록에서 삭제하였습니다.");
+					System.out.println("책 제거 완료");
 				}else {
-					System.out.println("현재 책 리스트에 존재하는 id가 아닙니다.");
+					System.out.println("현재 입력하신 id는 존재하지 않는 책입니다.");
 				}
-
 				break;
 			case 4:
 				String name = "";
@@ -177,9 +176,6 @@ public class Main {
 					System.out.println("존재 하지 않는 회원입니다.");
 				}
 				break;
-			case 6:
-				System.out.println("종료");
-				return;
 			default:
 				System.out.println("제시된 번호 외의 다른 번호를 입력하지 말아주세요.");
 				break;

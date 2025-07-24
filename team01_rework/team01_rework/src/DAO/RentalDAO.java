@@ -1,4 +1,4 @@
-package Rental;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import main.DBConnecter;
+import DTO.RentalDTO;
 
 public class RentalDAO {
 	public Connection connection;
@@ -57,6 +57,7 @@ public class RentalDAO {
 			preparedStatement.setInt(1, rentalDTO.getUserNumber());
 			preparedStatement.setInt(2, rentalDTO.getBookId());
 			count = preparedStatement.executeUpdate();
+			System.out.println(count+"=====확인");
 		} catch (SQLException e) {
 			System.out.println("returnUser() 중 sql 오류 발생");
 			e.printStackTrace();

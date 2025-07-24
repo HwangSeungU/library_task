@@ -2,6 +2,8 @@ package test;
 
 import java.util.List;
 
+import DAO.UserDAO;
+import DTO.UserDTO;
 //import bookManager.Book;
 //import bookManager.BookList;
 //import exceptionManager.BookAlreadyException;
@@ -11,8 +13,6 @@ import java.util.List;
 //import serviceManager.LibraryService;
 //import useManager.ConsoleUI;
 //import userManager.User;
-import user.UserDAO;
-import user.UserDTO;
 
 public class Test {
 	public static void main(String[] args) {
